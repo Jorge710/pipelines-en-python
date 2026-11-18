@@ -24,7 +24,11 @@ def step4(result):
     with open("result.txt", "w") as f:
         for customer_id, category in result:
             f.write(f"{customer_id}, {category}\n")
+    return result
 
+def ejecutar():
+    print("Ejecutando pipeline versión 2")
+    df = pd.read_csv("notebooks/data/csv/shopping_behavior_2023.csv")
+    print("Pipeline versión 2 finalizado")
 
-df = pd.read_csv("data/csv/shopping_behavior_2023.csv")
-step4(step3(step2(step1(df))))
+    return step4(step3(step2(step1(df))))
