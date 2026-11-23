@@ -1,21 +1,18 @@
 
-FROM python:3-slim
+FROM python:3.12-slim
 
-# Directorio de trabajo
+# Directorio principal del contenedor
 WORKDIR /usr/app/src
 
-# Copiar archivo de dependencias
+# Copiar dependencias
 COPY requirements.txt .
 
-# Instalar dependencias
+# Instalar dependencias dentro de Docker
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar carpetas del proyecto
+# Copiar archivos del proyecto
 COPY notebooks/ ./notebooks/
-COPY utils/ ./utils/
+#COPY utils/ ./utils/
 
-# Exponer puerto para futura aplicación web
-EXPOSE 8000
-
-# Ejecutar el script principal
-CMD ["python3", "-u", "notebooks/main.py"]
+# Comando predeterminado
+CMD ["python", "--version"]

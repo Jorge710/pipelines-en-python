@@ -1,52 +1,26 @@
-
 import pandas as pd
-import os
 
-def ejecutar():
+df = pd.read_csv("notebooks/data/csv/shopping_behavior_2023.csv")
 
-    # Leer archivo CSV
-    df = pd.read_csv("notebooks/data/csv/shopping_behavior_2023.csv")
+df.columns = df.columns.str.lower().str.replace(" ", "_")
 
-    # Normalizar nombres de columnas
-    df.columns = df.columns.str.lower().str.replace(" ", "_")
+df = df[df["payment_method"] == "PayPal"]
+df = df[df["frequency_of_purchases"].isin(["Weekly", "Fortnightly", "bi-weekly"])]
 
-    # Filtrar métodos de pago
-    df = df[df["payment_method"] == "PayPal"]
+df = df[["customer_id", "category", "purchase_amount_(usd)"]].groupby(["customer_id", "category"]).sum().reset_index()
 
-    # Filtrar frecuencia de compras
-    df = df[df["frequency_of_purchases"].isin(
-        ["Weekly", "Fortnightly", "bi-weekly"]
-    )]
+df["rank"] = df.groupby("category")["purchase_amount_(usd)"].rank(method="dense", ascending=False)
 
-    # Agrupar y sumar compras
-    df = (
-        df[["customer_id", "category", "purchase_amount_(usd)"]]
-        .groupby(["customer_id", "category"])
-        .sum()
-        .reset_index()
-    )
+df = df[df["rank"] == 1]
 
-    # Calcular ranking
-    df["rank"] = df.groupby("category")[
-        "purchase_amount_(usd)"
-    ].rank(method="dense", ascending=False)
+values = df[["customer_id", "category"]].to_dict()
 
-    # Obtener los primeros lugares
-    df = df[df["rank"] == 1]
+customers = [x for x in values["customer_id"].values()]
 
-    # Obtener resultados
-    values = df[["customer_id", "category"]].to_dict()
+categories = [x for x in values["category"].values()]
 
-    customers = list(values["customer_id"].values())
-    categories = list(values["category"].values())
+result = list(zip(customers, categories))
 
-    result = list(zip(customers, categories))
-
-    # Generar archivo de resultados
-    with open("result.txt", "w") as f:
-        for customer_id, category in result:
-            f.write(f"{customer_id}, {category}\n")
-
-    print("Pipeline versión 1 ejecutado correctamente")
-
-    return result
+with open("result.txt", "w") as f:
+    for customer_id, category in result:
+        f.write(f"{customer_id}, {category}\n")

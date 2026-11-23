@@ -1,6 +1,6 @@
 import pandas as pd
 import uuid
-from utils.xml_adapter import XMLAdpater
+from notebooks.utils.xml_adapter import XMLAdpater
 
 def pipeline(*steps):
     def wrapper(inputs):
@@ -38,9 +38,9 @@ def step4(result):
 def apply(step, values):
     return [step(value) for value in values]
 
-df1 = XMLAdpater("data/xml/shopping_behavior_2023.xml").get_data()
-df2 = XMLAdpater("data/xml/shopping_behavior_2024.xml").get_data()
-df3 = XMLAdpater("data/xml/shopping_behavior_2025.xml").get_data()
+df1 = XMLAdpater("notebooks/data/xml/shopping_behavior_2023.xml").get_data()
+df2 = XMLAdpater("notebooks/data/xml/shopping_behavior_2024.xml").get_data()
+df3 = XMLAdpater("notebooks/data/xml/shopping_behavior_2025.xml").get_data()
 
 p = pipeline(step1, step2, step3, step4)
 p([df1, df2, df3])

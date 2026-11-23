@@ -30,9 +30,9 @@ def step4(result):
 def apply(step, values):
     return [step(value) for value in values]
 
-df1 = pd.read_csv("data/csv/shopping_behavior_2023.csv")
-df2 = pd.read_csv("data/csv/shopping_behavior_2024.csv")
-df3 = pd.read_csv("data/csv/shopping_behavior_2025.csv")
+df1 = pd.read_csv("notebooks/data/csv/shopping_behavior_2023.csv")
+df2 = pd.read_csv("notebooks/data/csv/shopping_behavior_2024.csv")
+df3 = pd.read_csv("notebooks/data/csv/shopping_behavior_2025.csv")
 
 apply(step4,
     apply(step3,

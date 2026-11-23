@@ -1,6 +1,6 @@
 import pandas as pd
 import uuid
-from utils.xml_adapter import XMLAdpater
+from notebooks.utils.xml_adapter import XMLAdpater
 import time
 
 def logging_decorator(func):

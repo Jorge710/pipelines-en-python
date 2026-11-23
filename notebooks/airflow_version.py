@@ -4,8 +4,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 import uuid
 import time
-from utils.xml_adapter import XMLAdpater
-from utils.data_save_factory import DataSaveFactory
+from notebooks.utils.xml_adapter import XMLAdpater
+from notebooks.utils.data_save_factory import DataSaveFactory
 
 # ------------------------
 # Functions

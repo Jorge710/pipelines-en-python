@@ -1,29 +1,17 @@
 
-from flask import Flask
+from version_1 import ejecutar
 
-# Importar las versiones
-import version_1
-import version_2
+def main():
+    print("================================")
+    print("   EJECUTANDO PIPELINE VERSION 1")
+    print("================================")
 
-app = Flask(__name__)
+    resultado = ejecutar()
 
+    print("\nPipeline versión 1 finalizado.")
 
-@app.route("/")
-def inicio():
-
-    print("Iniciando ejecución de pipelines")
-
-    # Ejecutar versión 1
-    #resultado = version_1.ejecutar()
-    resultado = version_2.ejecutar()
-
-    return f"""
-        <h1>PIPELINES EN PYTHON</h1>
-        <h2>Ejecutando proyecto en Docker</h2>
-        <p>Pipeline ejecutado correctamente.</p>
-        <p>Resultado: {resultado}</p>
-    """
+    return resultado
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    main()

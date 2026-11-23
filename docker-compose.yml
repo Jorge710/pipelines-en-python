@@ -1,0 +1,41 @@
+
+services:
+  pipelines:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: pipelines-python
+
+    working_dir: /usr/app/src
+
+    volumes:
+      - .:/usr/app/src
+
+    command: tail -f /dev/null
+
+    stdin_open: true
+    tty: true
+
+    ports:
+      - "8000:8000"
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: pipelines-jupyter
+
+    working_dir: /usr/app/src
+
+    volumes:
+      - .:/usr/app/src
+
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+    ports:
+      - "8888:8888"
+
+    stdin_open: true
+    tty: true
