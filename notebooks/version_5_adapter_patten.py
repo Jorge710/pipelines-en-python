@@ -1,6 +1,8 @@
 import pandas as pd
 import uuid
-from notebooks.utils.xml_adapter import XMLAdpater
+from utils.xml_adapter import XMLAdpater
+
+#Ejecutar en el caso que se requiera ENV PYTHONPATH=/usr/app/src
 
 def pipeline(*steps):
     def wrapper(inputs):
